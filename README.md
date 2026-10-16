@@ -1,5 +1,7 @@
 # Tore, Remis, Heimvorteil: mehr Information als Sieg oder Niederlage – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-tore-remis-demo.streamlit.app/)**
+
 Sechstes Stück der **Ranking-Linie** (Konzepte-Demo), Nachfolger von `bradley-terry-demo` und `massey-colley-demo`: Bradley-Terry sieht nur Sieg oder
 Niederlage. Hier liest das Modell auch die **Tore**, das **Remis** und den **Heimvorteil**: ein Poisson-Modell mit einer Stärke je Mannschaft, ein Davidson-Modell für
 Sieg-Remis-Niederlage und der Heimvorteil als Faktor der Heim-Torrate. Das Vehikel ist das neutrale, simulierte Turnier der Wurzel (Stärken aus dem Generator
@@ -138,4 +140,4 @@ Gebaut mit Streamlit, Plotly, numpy, pandas und fpdf2.
 
 ---
 
-Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Ranking: von der Siegtabelle bis Learning to Rank](https://sebastianhanisch.net/konzepte-ranking.html).
