@@ -82,10 +82,10 @@ st.title("⚽ Tore, Remis, Heimvorteil: mehr Information als Sieg oder Niederlag
 st.markdown(
     """
 Bradley-Terry sieht nur Sieg oder Niederlage. Diese Demo ist das **sechste Stück der Ranking-Linie** und fragt, was ein Modell gewinnt, das auch die **Tore**,
-das **Remis** und den **Heimvorteil** liest. Das Ergebnis ist zweigeteilt: Tore sind **gut anderthalb Partien wert**, aber ihre Rangordnung ist im
-vollständigen Plan **dieselbe wie die der Tordifferenz** (Massey): Der eigentliche Gewinn liegt in der **1-X-2-Vorhersage**. Das Remis anders zu behandeln
-ändert den Rang nicht; der Heimvorteil lässt sich nur trennen, wenn das Heimrecht nicht an der Stärke hängt; und **überstreute** Tore bringen das Poisson-Modell zu
-Fall.
+das **Remis** und den **Heimvorteil** liest. Das Ergebnis ist zweigeteilt: Tore sind bei Fußball-Torniveau etwa das **1,6- bis 1,8-Fache an Partien wert**, aber ihre Rangordnung ist im
+vollständigen Plan (ohne Heimvorteil oder mit ausgeglichenem Heimrecht) **dieselbe wie die der Tordifferenz** (Massey): Der eigentliche Gewinn liegt in der
+**1-X-2-Vorhersage**. Das Remis anders zu behandeln ändert den Rang im Mittel nicht; bei wenigen Partien ist der Heimvorteil verzerrt, wenn das Heimrecht an der
+Stärke hängt; und stark **überstreute** Tore bringen die Vorhersage des Poisson-Modells zu Fall.
 
 Weiter unten: fünf **🔬 Experimente** mit Verdikt, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
@@ -98,7 +98,7 @@ with st.expander("So lesen Tore die Stärke", expanded=True):
    exp(μ − (θ_H − θ_G)/2): Das **Torverhältnis** ist exp(θ_H − θ_G + h), also dieselbe Skala wie bei Bradley-Terry; μ setzt das Torniveau, h ist der Heimvorteil.
 2. **Remis** gibt es von selbst: Fallen gleich viele Tore, ist es unentschieden. Das Davidson-Modell für Sieg-Remis-Niederlage braucht dafür einen eigenen Parameter ν
    und sieht nur den Ausgang, nicht die Tore.
-3. **Der Rang:** Im vollständigen, ausgeglichenen Plan hängt die Schätzung nur an der **Tordifferenz** jeder Mannschaft; das ist auch die Ordnung der
+3. **Der Rang:** Im vollständigen, ausgeglichenen Plan hängt die **Ordnung** nur an der **Tordifferenz** jeder Mannschaft; das ist auch die Ordnung der
    Massey-Wertung. Das Poisson-Modell ordnet also nicht anders, es ordnet **mit Tordifferenz** statt mit Sieg oder Niederlage, und liefert dazu
    Wahrscheinlichkeiten für 1, X und 2.
 4. **Was es annimmt:** unabhängige Tore, eine Stärke je Mannschaft, einen festen Heimvorteil. Das Experiment 5 bricht die erste Annahme.
@@ -276,9 +276,9 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Tore sind unabhängig und Poisson-verteilt** | Überstreute Tore machen das Poisson-Modell überheblich: ab Form 2 sagt Davidson besser voraus (Experiment 5). Die Korrelation niedriger Ergebnisse (Dixon-Coles) ist nicht modelliert. | – |
+| **Tore sind unabhängig und Poisson-verteilt** | Überstreute Tore machen das Poisson-Modell überheblich: ab Form 2 und bei mindestens 2 Partien je Paar sagt Davidson besser voraus (Experiment 5). Die Korrelation niedriger Ergebnisse (Dixon-Coles) ist nicht modelliert. | – |
 | **Der Rang kommt aus der Tordifferenz** | Im vollständigen, ausgeglichenen Plan ist die Poisson-Ordnung die der Tordifferenz, also die von Massey; der Gewinn liegt in der Vorhersage (Experiment 1). | Massey und Colley |
-| **Der Heimvorteil ist konstant und unabhängig von der Stärke** | Hängt das Heimrecht an der Stärke, weicht ĥ vom wahren Wert ab und der Rang wird nicht besser (Experiment 4). | – |
+| **Der Heimvorteil ist konstant und unabhängig von der Stärke** | Hängt das Heimrecht an der Stärke, weicht ĥ bei wenigen Partien vom wahren Wert ab, und der Rang wird je nach Verteilung besser oder schlechter (Experiment 4). | – |
 | **Eine Stärke je Mannschaft** (Angriff gleich Verteidigung) | Angriffs- und Abwehrstärke fallen auf eine Zahl zusammen; getrennte Parameter (Maher) sind nicht umgesetzt. | – |
 | **Die Stärke ist konstant** | Verändert sie sich über die Saison, folgt ihr nur ein fortlaufendes Verfahren. | Elo |
 | **Eine Partie ist Mannschaft gegen Mannschaft** | Zerlegt man Mannschaftsergebnisse auf Spieler, ist das eine eigene Aufgabe. | Von der Mannschaft zum Einzelnen |

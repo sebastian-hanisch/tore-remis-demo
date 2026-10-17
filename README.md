@@ -9,10 +9,12 @@ Version 1, wortgleich; die Tore sind ein lokales Modell darauf); alles ist simul
 
 ## Kernfrage
 
-Was gewinnt ein Modell, das Tore, Remis und Heimvorteil liest, gegenüber Sieg oder Niederlage? **Rang:** im vollständigen, ausgeglichenen Plan ordnet das
-Poisson-Modell **exakt wie die Tordifferenz**, also wie Massey; es trifft die Stärke treuer als Bradley-Terry (rund das 1,6- bis 1,8-fache an Partien). **Vorhersage:**
-der Mehrverlust der 1-X-2-Wahrscheinlichkeiten gegen die Wahrheit halbiert sich gegenüber Davidson. Das Remis anders zu behandeln ändert den Rang **nicht**. Der
-Heimvorteil ist nur trennbar, wenn das Heimrecht nicht an der Stärke hängt. Überstreute Tore kippen die Vorhersage des Poisson-Modells, nicht seinen Rang.
+Was gewinnt ein Modell, das Tore, Remis und Heimvorteil liest, gegenüber Sieg oder Niederlage? **Rang:** im vollständigen, ausgeglichenen Plan ohne Heimvorteil (oder mit ausgeglichenem Heimrecht und gerader Partienzahl je Paar) ordnet das
+Poisson-Modell **exakt wie die Tordifferenz**, also wie Massey; es trifft die Stärke treuer als Bradley-Terry (bei Fußball-Torniveau rund das 1,6- bis 1,8-fache an
+Partien, Schätzung ±0,2). **Vorhersage:**
+der Mehrverlust der 1-X-2-Wahrscheinlichkeiten gegen die Wahrheit halbiert sich gegenüber Davidson. Das Remis anders zu behandeln ändert den Rang im Mittel **nicht**
+(τ 0,790 bis 0,794); Davidson und Remis = ½ ordnen identisch. Bei wenigen Partien ist der Heimvorteil verzerrt, wenn das Heimrecht an der Stärke hängt. Stark
+überstreute Tore (Form 2 und kleiner) kippen die Vorhersage des Poisson-Modells, nicht seinen Vorsprung im Rang vor Bradley-Terry.
 
 ## Modell
 
@@ -47,14 +49,14 @@ Alle Zahlen: 300 feste Turniere, 8 Teilnehmer, Stärkeabstand 0,3, vollständige
 | Remis behandeln (2 Partien, 1,4 Tore) | τ: verworfen 0,790, Remis = ½ 0,794, Davidson 0,794, Poisson 0,849. **Mehrverlust 1-X-2:** 0,082 / 0,088 / 0,075 / **0,034** nat je Partie. | `test_the_draw_treatment_does_not_change_the_order_but_the_prediction` |
 | Vorhersage nach Partien (h = 0,3 geschätzt) | Mehrverlust BT + Remisquote / Davidson / Poisson: 1 Partie 0,174 / 0,150 / **0,071**; 2: 0,094 / 0,082 / **0,038**; 4: 0,064 / 0,046 / **0,019**; 10: 0,041 / 0,020 / **0,008**. | `test_the_goal_model_predicts_better_at_every_number_of_games` |
 | Heimvorteil bei ausgeglichenem Heimrecht | ĥ = 0,31 (wahr 0,30); τ mit und ohne h gleich (0,847), der **Mehrverlust** sinkt von 0,053 auf 0,038. | `test_with_balanced_home_rights_ignoring_the_advantage_costs_prediction_not_rank` |
-| Heimrecht hängt an der Stärke | Setzliste: ĥ = **0,41**, τ ohne h 0,886, mit h 0,852; umgekehrt: ĥ = **0,20**, τ ohne h 0,820, mit h 0,843. Der Skalenfehler der Stärken wird bei Setzliste mit h schlechter, umgekehrt besser. | `test_when_home_rights_follow_strength_the_estimated_advantage_moves` |
+| Heimrecht hängt an der Stärke | Bei 2 Partien je Paar, Setzliste: ĥ = **0,41**, τ ohne h 0,886, mit h 0,852; umgekehrt: ĥ = **0,20**, τ ohne h 0,820, mit h 0,843. Der Skalenfehler der Stärken wird bei Setzliste mit h schlechter, umgekehrt besser. | `test_when_home_rights_follow_strength_the_estimated_advantage_moves` |
 | Überstreuung (4 Partien, Form r) | Mehrverlust Poisson / Davidson: r = ∞ 0,017 / 0,042; r = 8 0,020 / 0,036; **r = 2 0,044 / 0,029**; r = 0,7 0,123 / 0,025. τ Poisson bleibt vor Bradley-Terry (0,856 gegen 0,807 bei r = 2). | `test_overdispersion_breaks_the_probabilities_but_not_the_rank` |
 
 ## Befunde und Korrekturen gegenüber dem Plan
 
 - **Faktor 1,6 bis 1,8 statt 1,5 bis 1,7:** andere feste Turniere und ein anderer Zufallsstrom der Spielplan-Erzeugung (vektorisiert statt Münzwürfen in der Schleife).
 - **Neu gegenüber der Vorab-Messreihe:** Davidson und Bradley-Terry mit Remis = ½ ordnen identisch (nach Punkten), wie Poisson und Massey (nach Tordifferenz). Die
-  Behandlung des Remis ändert den Rang also nicht nur „kaum“, sondern im vollständigen Plan ohne Heimvorteil gar nicht.
+  Verworfene Remis ändern die Rangfolge von Bradley-Terry im Einzelfall (in 133 von 300 Turnieren; 2 Partien, 1,4 Tore), im Mittel aber kaum (τ 0,790 gegen 0,794).
 - **Handwerte:** Die 1-X-2-Wahrscheinlichkeiten bei λ = 1 gegen 1 sind 0,3457 / 0,3085 / 0,3457 (der Plan nannte 0,3458 durch Aufrunden).
 - **Dateien:** `trm_goals.py`, `trm_models.py`, `trm_outcomes.py` statt der geplanten Aufteilung; die Bradley-Terry-Anpassung ist eine eigene, in dieses Repo kopierte
   Fassung (kein Import aus Stück 5).
@@ -93,7 +95,7 @@ Alle Zahlen: 300 feste Turniere, 8 Teilnehmer, Stärkeabstand 0,3, vollständige
 
 ## Tests
 
-89 Tests, ein bis zwei Minuten: Einheiten gegen die von Hand gerechneten Mini-Instanzen (`test_goals.py`, `test_models.py`, `test_outcomes.py`), Generator
+120 Tests, rund 270 Sekunden: Einheiten gegen die von Hand gerechneten Mini-Instanzen (`test_goals.py`, `test_models.py`, `test_outcomes.py`), Generator
 (`test_generator.py`, wortgleich mit der Wurzel), **Orakel** (`test_oracle_tore_remis.py`: Poisson, Davidson und Bradley-Terry gegen `scipy.optimize` auf der Partienliste,
 Inversion gegen `scipy.stats.ppf` für Poisson und negativ binomial, 1-X-2 gegen die Brute-Force-Doppelsumme, Ordnungen gegen Tordifferenz und Punkte, Heimvorteil gegen die
 geschlossene Form), Presets, ausblendbarer Regler (`test_hidden_widget_state.py`), Analyse und Verdikte (`test_evaluation.py`), alle Zahlen dieses README

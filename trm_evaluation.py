@@ -321,7 +321,7 @@ def verdict_draws(draw_rows, predict_rows) -> tuple[str, str]:
     d = {r["model"]: r for r in draw_rows}
     p = {r["k"]: r for r in predict_rows}
     taus = [d[m]["tau"] for m in ("BT, Remis verworfen", "BT, Remis = ½", "Davidson")]
-    return "info", (f"Die Behandlung des Remis ändert die Rangordnung nicht (τ {de(min(taus), 3)} bis {de(max(taus), 3)} für verwerfen, ½ und Davidson), nur die "
+    return "info", (f"Die Behandlung des Remis ändert die Rangordnung im Mittel kaum (τ {de(min(taus), 3)} bis {de(max(taus), 3)} für verwerfen, ½ und Davidson), nur die "
                     f"Vorhersage: Mehrverlust {de(d['BT, Remis = ½']['kl'], 3)} (BT + Remisquote), {de(d['Davidson']['kl'], 3)} (Davidson), "
                     f"**{de(d['Poisson']['kl'], 3)}** (Poisson). Mit mehr Partien bleibt das Tormodell vorn ({de(p[10]['Davidson'], 3)} gegen "
                     f"{de(p[10]['Poisson'], 3)} bei 10 Partien je Paar, Davidson gegen Poisson); Bradley-Terry mit fester Remisquote lernt nicht, dass Remis "
@@ -342,4 +342,4 @@ def verdict_dispersion(rows) -> tuple[str, str]:
     return "warning", (f"Ohne Überstreuung ist der Mehrverlust von Poisson {de(r[None]['kl_po'], 3)}, von Davidson {de(r[None]['kl_dv'], 3)}. Mit Form 2 kehrt es "
                        f"sich um: Poisson {de(r[2.0]['kl_po'], 3)}, Davidson {de(r[2.0]['kl_dv'], 3)}; bei Form 0,7 sind es {de(r[0.7]['kl_po'], 3)} gegen "
                        f"{de(r[0.7]['kl_dv'], 3)}. Die Rangordnung bleibt vorn (τ {de(r[2.0]['tau_po'], 3)} gegen {de(r[2.0]['tau_bt'], 3)} bei Form 2): "
-                       "Überstreuung bricht die Wahrscheinlichkeiten, nicht den Rang.")
+                       "Überstreuung bricht die Wahrscheinlichkeiten, nicht den Vorsprung im Rang.")

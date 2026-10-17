@@ -55,6 +55,6 @@ PRESETS = {
 PRESET_HELP = {
     "Fußball-Niveau": "8 Mannschaften, 1,4 Tore je Mannschaft, 2 Partien je Paar, Heimvorteil 0,3 alternierend verteilt: das Tormodell ordnet treuer und sagt 1-X-2 besser voraus.",
     "Torarmes Spiel": "0,5 Tore je Mannschaft: 41 % Remis, Tore tragen wenig Information je Partie; mit 4 Partien je Paar.",
-    "Heimrecht nach Setzliste": "Die Stärkeren haben in 80 % der Partien Heimrecht: Heimvorteil und Stärke sind kaum zu trennen, der geschätzte Heimvorteil weicht vom wahren ab.",
+    "Heimrecht nach Setzliste": "Die Stärkeren haben in 80 % der Partien Heimrecht: Heimvorteil und Stärke sind bei wenigen Partien schwer zu trennen, der geschätzte Heimvorteil weicht vom wahren ab.",
     "Überstreute Tore": "Die Torzahlen streuen stärker als Poisson (Form 2): das Poisson-Modell wird überheblich, die Vorhersage fällt hinter Davidson.",
 }
