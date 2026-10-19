@@ -63,7 +63,7 @@ def test_poisson_newton_matches_scipy_on_the_game_list():
             lam = 0.6
             ours = M.fit_poisson(n, H, A, gh, ga, lam, with_h)
             x0 = np.zeros(n + 1 + int(with_h))
-            res = optimize.minimize(neg_poisson, x0, args=(n, H, A, gh, ga, lam, with_h), method="BFGS", options={"gtol": 1e-9})
+            res = optimize.minimize(neg_poisson, x0, args=(n, H, A, gh, ga, lam, with_h), jac="3-point", method="BFGS", options={"gtol": 1e-9})
             th = res.x[(2 if with_h else 1):]
             assert ours.theta == pytest.approx(th - th.mean(), abs=1e-4)
             assert ours.mu == pytest.approx(res.x[0], abs=1e-4)
@@ -99,7 +99,7 @@ def test_davidson_newton_matches_scipy_on_the_game_list():
             lam = 0.7
             ours = M.fit_davidson(n, H, A, gh, ga, lam, with_h)
             x0 = np.zeros(n + 1 + int(with_h))
-            res = optimize.minimize(neg_davidson, x0, args=(n, H, A, out, lam, with_h), method="BFGS", options={"gtol": 1e-9})
+            res = optimize.minimize(neg_davidson, x0, args=(n, H, A, out, lam, with_h), jac="3-point", method="BFGS", options={"gtol": 1e-9})
             th = res.x[(2 if with_h else 1):]
             assert ours.theta == pytest.approx(th - th.mean(), abs=1e-4)
             assert ours.log_nu == pytest.approx(res.x[0], abs=1e-4)
@@ -122,7 +122,7 @@ def test_bradley_terry_half_matches_scipy_on_the_game_list():
             continue
         w = (gh > ga) + 0.5 * (gh == ga)
         ours = M.fit_bradley_terry(n, H, A, gh, ga, 0.9, "half", False)
-        res = optimize.minimize(neg_bt, np.zeros(n), args=(n, H, A, w, 0.9), method="BFGS", options={"gtol": 1e-10})
+        res = optimize.minimize(neg_bt, np.zeros(n), args=(n, H, A, w, 0.9), jac="3-point", method="BFGS", options={"gtol": 1e-10})
         assert ours.theta == pytest.approx(res.x - res.x.mean(), abs=1e-5)
 
 
